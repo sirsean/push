@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Provider } from 'react-redux';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+} from 'react-router-dom';
 import './App.css';
+import { store } from './database.js';
+import Home from './views/home.js';
+import Players from './views/players.js';
+import Games from './views/games.js';
+import NewGame from './views/new_game.js';
+import Game from './views/game.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Provider store={store}>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/players" element={<Players />} />
+                    <Route path="/games" element={<Games />} />
+                    <Route path="/newgame" element={<NewGame />} />
+                    <Route path="/game/:index" element={<Game />} />
+                </Routes>
+            </Router>
+        </Provider>
+    );
 }
 
 export default App;

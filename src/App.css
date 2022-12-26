@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
+.Home {
+    margin: 12px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Home .newgame {
+    font-size: 1.5em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Players {
+    margin: 12px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Players .PlayerRow {
+    font-size: 1.5em;
 }
 
-.App-link {
-  color: #61dafb;
+.Players .AddPlayerForm {
+    text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Players .AddPlayerForm input {
+    font-size: 1.5em;
+    margin: 8px;
+}
+
+.Players .AddPlayerForm button {
+    font-size: 2em;
+}
+
+.Games {
+    margin: 12px;
+}
+
+.NewGame {
+    margin: 12px;
+}
+
+.NewGame input[type="checkbox"] {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.NewGame label {
+    font-size: 1.5em;
+    margin-left: 8px;
+    vertical-align: super;
+}
+
+.NewGame button {
+    font-size: 2em;
+}
+
+.Game .TotalScorePanel {
+    width: 100%;
+    font-size: 1.5em;
+}
+
+.Game .TotalScorePanel th {
+    width: 50%;
+    text-align: right;
+}
+
+.Game .HandPanel {
+    margin: 20px;
+    border-top: 2px solid black;
+}
+
+.Game .HandPanel td {
+    font-size: 1.5em;
+}
+
+.Game .HandPanel td input {
+    font-size: 1.2em;
+    width: 100%;
 }
