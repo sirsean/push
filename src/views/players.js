@@ -5,6 +5,7 @@ import {
     addPlayer,
     removePlayer,
 } from '../database.js';
+import { Page } from './layout.js';
 
 function PlayerRow({ player }) {
     const remove = (e) => {
@@ -19,7 +20,7 @@ function PlayerRow({ player }) {
     );
 }
 
-function AddPlayerForm() {
+export function AddPlayerForm() {
     const onSubmit = (e) => {
         e.preventDefault();
         store.dispatch(addPlayer(e.target.player.value));
@@ -36,13 +37,15 @@ function AddPlayerForm() {
 export default function Players() {
     const players = useSelector(selectPlayers);
     return (
-        <div className="Players">
-            <h1>Players</h1>
-            <table>
-                <tbody>{players.map(p => <PlayerRow key={p} player={p} />)}</tbody>
-            </table>
-            <hr />
-            <AddPlayerForm />
-        </div>
+        <Page>
+            <div className="Players">
+                <h1>Players</h1>
+                <table>
+                    <tbody>{players.map(p => <PlayerRow key={p} player={p} />)}</tbody>
+                </table>
+                <hr />
+                <AddPlayerForm />
+            </div>
+        </Page>
     );
 }

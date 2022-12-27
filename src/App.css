@@ -1,9 +1,29 @@
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin: 0 8px;
+}
+
+header .left {
+    width: 50%;
+}
+
+header .right {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    width: 50%;
+    padding: 0.6em;
+}
+
 .Home {
     margin: 12px;
 }
 
 .Home .newgame {
-    font-size: 1.5em;
+    font-size: 1.6em;
 }
 
 .Players {
@@ -14,16 +34,16 @@
     font-size: 1.5em;
 }
 
-.Players .AddPlayerForm {
+.AddPlayerForm {
     text-align: center;
 }
 
-.Players .AddPlayerForm input {
+.AddPlayerForm input {
     font-size: 1.5em;
     margin: 8px;
 }
 
-.Players .AddPlayerForm button {
+.AddPlayerForm button {
     font-size: 2em;
 }
 

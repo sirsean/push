@@ -9,6 +9,7 @@ import {
     selectScore,
     setScore,
 } from '../database.js';
+import { Page } from './layout.js';
 
 const HANDS = [
     'Two Sets of Three',
@@ -61,10 +62,12 @@ export default function Game() {
     const game = useSelector(selectGame(index));
     if (game) {
         return (
-            <div className="Game">
-            <TotalScorePanel gameIndex={index} />
-            {HANDS.map((hand, i) => <HandPanel key={i} hand={hand} handIndex={i} gameIndex={index} players={game.players} />)}
-            </div>
+            <Page>
+                <div className="Game">
+                    <TotalScorePanel gameIndex={index} />
+                    {HANDS.map((hand, i) => <HandPanel key={i} hand={hand} handIndex={i} gameIndex={index} players={game.players} />)}
+                </div>
+            </Page>
         );
     }
 }

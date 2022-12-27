@@ -6,6 +6,8 @@ import {
     selectNumGames,
     startGame,
 } from '../database.js';
+import { Page } from './layout.js';
+import { AddPlayerForm } from './players.js';
 
 function PlayerSelection({ player }) {
     return (
@@ -28,12 +30,16 @@ export default function NewGame() {
         navigate(href);
     }
     return (
-        <div className="NewGame">
-            <h1>New Game</h1>
-            <form onSubmit={onSubmit}>
-                {players.map(p => <PlayerSelection key={p} player={p} />)}
-                <button>Start Game</button>
-            </form>
-        </div>
+        <Page>
+            <div className="NewGame">
+                <h1>New Game</h1>
+                <AddPlayerForm />
+                <hr />
+                <form onSubmit={onSubmit}>
+                    {players.map(p => <PlayerSelection key={p} player={p} />)}
+                    <button>Start Game</button>
+                </form>
+            </div>
+        </Page>
     );
 }
