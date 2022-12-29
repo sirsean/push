@@ -1,4 +1,5 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import sortBy from 'sort-by';
 
 const rawPersisted = localStorage.getItem('push');
 const persisted = rawPersisted ? JSON.parse(rawPersisted) : { players: [], games: [] };
@@ -58,7 +59,7 @@ export const selectGameScores = index => state => {
     return game.players.map(player => {
         const score = game.hands.map(hand => (hand[player] || 0)).reduce((sum, item) => sum + item, 0);
         return { player, score };
-    });
+    }).sort(sortBy('score', 'player'));
 };
 export const selectScore = ({ gameIndex, handIndex, player }) => state => {
     return (state.games[gameIndex].hands[handIndex] || {})[player];
