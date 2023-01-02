@@ -10,6 +10,8 @@ import {
     setScore,
 } from '../database.js';
 import { Page } from './layout.js';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 const HANDS = [
     'Two Sets of Three',
@@ -61,11 +63,23 @@ export default function Game() {
     const { index } = useParams();
     const game = useSelector(selectGame(index));
     if (game) {
+        const responsiveCarousel = {
+            desktop: {
+                breakpoint: { max: 3000, min: 1024 },
+                items: 3,
+            },
+            mobile: {
+                breakpoint: { max: 464, min: 0 },
+                items: 1,
+            },
+        };
         return (
             <Page>
                 <div className="Game">
                     <TotalScorePanel gameIndex={index} />
-                    {HANDS.map((hand, i) => <HandPanel key={i} hand={hand} handIndex={i} gameIndex={index} players={game.players} />)}
+                    <Carousel responsive={responsiveCarousel} autoPlay={false} keyBoardControl={false}>
+                        {HANDS.map((hand, i) => <HandPanel key={i} hand={hand} handIndex={i} gameIndex={index} players={game.players} />)}
+                    </Carousel>
                 </div>
             </Page>
         );
