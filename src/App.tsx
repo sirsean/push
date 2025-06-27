@@ -6,14 +6,14 @@ import {
     Route,
 } from 'react-router-dom';
 import './App.css';
-import { store } from './database.js';
-import Home from './views/home.js';
-import Players from './views/players.js';
-import Games from './views/games.js';
-import NewGame from './views/new_game.js';
-import Game from './views/game.js';
+import { store } from './database';
+import Home from './views/home';
+import Players from './views/players';
+import Games from './views/games';
+import NewGame from './views/new_game';
+import Game from './views/game';
 
-function App() {
+function App(): JSX.Element {
     return (
         <Provider store={store}>
             <Router>
