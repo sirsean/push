@@ -1,4 +1,4 @@
-import { createSlice, configureStore, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, configureStore, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import sortBy from 'sort-by';
 
 export interface Player {
@@ -81,24 +81,47 @@ store.subscribe(() => {
     localStorage.setItem('push', JSON.stringify({ players, games }));
 });
 
+// Simple selectors that return primitives or stable references
 export const selectPlayers = (state: AppState) => state.players;
 export const selectNumGames = (state: AppState) => state.games.length;
+
+// Parameterized selector for single game
 export const selectGame = (index: number) => (state: AppState) => state.games[index];
-export const selectGameScores = (index: number) => (state: AppState) => {
-    const game = state.games[index];
-    return game.players.map(player => {
-        const score = game.hands.map(hand => (hand[player] || 0)).reduce((sum, item) => sum + item, 0);
-        return { player, score };
-    }).sort(sortBy('score', 'player'));
+// Create a memoized selector factory for game scores
+const makeSelectGameScores = () => createSelector(
+    (state: AppState, index: number) => state.games[index],
+    (game) => {
+        if (!game) {
+            return [];
+        }
+        return game.players.map(player => {
+            const score = game.hands.map(hand => (hand[player] || 0)).reduce((sum, item) => sum + item, 0);
+            return { player, score };
+        }).sort(sortBy('score', 'player'));
+    }
+);
+
+// Cache of selector instances
+const gameScoresSelectors: { [key: number]: ReturnType<typeof makeSelectGameScores> } = {};
+
+// Parameterized selector that returns memoized results
+export const selectGameScores = (index: number) => {
+    if (!gameScoresSelectors[index]) {
+        gameScoresSelectors[index] = makeSelectGameScores();
+    }
+    return (state: AppState) => gameScoresSelectors[index](state, index);
 };
+// Simple selector for individual score (no memoization needed for primitive values)
 export const selectScore = ({ gameIndex, handIndex, player }: { gameIndex: number; handIndex: number; player: string }) => (state: AppState) => {
-    return (state.games[gameIndex].hands[handIndex] || {})[player];
+    return state.games[gameIndex]?.hands[handIndex]?.[player];
 };
-export const selectGames = (state: AppState) => {
-    return state.games.map((game, index) => {
-        return {
+// Memoized selector for games list
+export const selectGames = createSelector(
+    (state: AppState) => state.games,
+    (games) => {
+        return games.map((game, index) => ({
             index,
             date: (new Date(game.started)).toISOString().split('T')[0],
-        };
-    }).reverse();
-};
+        })).reverse();
+    }
+);
