@@ -11,12 +11,12 @@ import {
 import { Page } from "./layout";
 
 const HANDS = [
-  "Two Sets of Three",
-  "Set of Three, Run of Four",
-  "Two Runs of Four",
-  "Three Sets of Three",
-  "Run of Seven",
-  "Set of Eight",
+  "2x SET_3",
+  "SET_3+RUN_4",
+  "2x RUN_4",
+  "3x SET_3",
+  "RUN_7",
+  "SET_8",
 ];
 
 interface HandPlayerRowProps {
@@ -80,7 +80,7 @@ function HandPanel({
   return (
     <div className="bg-cyber-gray border border-cyber-pink rounded-lg shadow-cyber p-6">
       <h2 className="text-2xl font-bold text-cyber-pink mb-6 text-center border-b border-cyber-cyan pb-4 font-mono">
-        &gt; {hand.toUpperCase().replace(/ /g, '_')}
+        &gt; {hand}
       </h2>
       <div className="space-y-3">
         {players.map((p) => (
